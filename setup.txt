@@ -1,0 +1,47 @@
+We are creating a social media application using MERN Stack
+
+- Frontend Technology
+. React - As our framework 
+. React Router - Navigtion
+. Formyik + yup - For form validation
+. Redux Toolkit - For state management 
+. Redux with Persistent - To store our data on localstorage
+. React Dropzone - For image upload
+
+- Backend Technology
+. NodeJS - As our runtime environment
+. ExpressJS - As our backend server
+. Mongoose - As our mongo database
+. JWT - For authentication
+. Multer - For file upload
+
+- Now let setup our aplication by creating our bckend folder first called server
+- Installation of dependencies like this
+C:\SocialPedia\server> npm i -g nodemon
+C:\SocialPedia\server> npm i express body-parser bcrypt cors dotenv gridfs-stream multer multer-gridfs-storage helmet morgan jsonwebtoken mongoose
+C:\SocialPedia\server> npm i cloudinary
+PS C:\SocialPedia\server> npm init -y
+- Adding this line of code onto our package.json file 
+  "type": "module", 
+  - so we can use things like import instead of require
+- Create a new file in the server folder named index.js file
+- where will setup the running and routing of our application
+dotenv.config();
+const app = express();
+app.use(express.json());
+
+const PORT = process.env.PORT || 3500;
+
+mongoose.connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    // useFindAndModify: false,
+})
+
+const db = mongoose.connection;
+db.on("error", (error) => console.log(error));
+db.once("open", ()=> console.log("Connected to mongodb"));
+
+app.listen(PORT, ()=>{
+    console.log(`server running at http://localhost:${PORT}`)
+})
